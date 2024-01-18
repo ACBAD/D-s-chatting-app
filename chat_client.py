@@ -6,6 +6,7 @@ import threading
 import tkinter
 from tkinter import filedialog
 import time
+import re
 
 
 class HandleServerReturn(threading.Thread):
@@ -148,6 +149,12 @@ port = 12345
 exit_event = threading.Event()
 
 if __name__ == '__main__':
+    host = input('输入服务器IP:\n')
+    ip_check = re.compile(r'^((25[0-5]|2[0-4]\d|[0-1]?\d?\d)\.){3}(25[0-5]|2[0-4]\d|[0-1]?\d?\d)$')
+    valid = ip_check.match(host)
+    if valid is None:
+        print('输入的ip无效')
+        sys.exit(1919810)
     User_send = SendingModel(host, port)
     User_send.start()
     User_operation = Operations()
